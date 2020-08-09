@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import descartes
 import geopandas as gpd
 from shapely.geometry import Point, Polygon
+from random_coordinate_generator import *
 
 app = Flask(__name__)
 
@@ -35,6 +36,7 @@ def success(name):
 
 @app.route('/heatmap')
 def heatmap():
+    my_test_df = test_generator()
     return render_template('heatmap.html')
 
 
