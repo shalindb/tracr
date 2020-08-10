@@ -2,16 +2,21 @@
 
 import random
 import pandas as pd
+from geopy.geocoders import Nominatim
 
 def test_generator():
-    coordinates = {'City': [], 'Longitude': [], 'Latitude': []}
-    for i in range(0, 100):
-        longitude = round(random.uniform(-122.296263,-122.251257), 6)
-        latitude = round(random.uniform(37.858049,37.876750), 6)
+    coordinates = {'City': [], 'Longitude': [], 'Latitude': [], 'Address': []}
+    geolocator = Nominatim(user_agent='Tracr')
+    for i in range(0, 50):
+        longitude = round(random.uniform(-122.30,-122.255126), 6)
+        latitude = round(random.uniform(37.852049,37.881750), 6)
+        coor_lat_long = f"{str(latitude)}, {str(longitude)}"
+        coor_address = geolocator.reverse(coor_lat_long)
+        coordinates['Address'].append(coor_address)
         coordinates['City'].append('Berkeley')
         coordinates['Longitude'].append(longitude)
         coordinates['Latitude'].append(latitude)
-    coor_df = pd.DataFrame(coordinates, columns=['City', 'Longitude', 'Latitude'])
+    coor_df = pd.DataFrame(coordinates, columns=['City', 'Longitude', 'Latitude', 'Address'])
     return coor_df
 
 if __name__ == '__main__':
