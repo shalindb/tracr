@@ -41,6 +41,26 @@
                             </nav>
                         </div>
                     </div>
+            <div class="container">
+				<div class="row">
+					<div class="col-md-12">
+                    <div class="alert alert-danger">
+                        <div class="container">
+                            <div class="d-flex">
+                              <div class="alert-icon">
+                                <i class="ion-ios-information-circle-outline"></i>
+                              </div>
+                              <p class="mb-0 ml-2"><b>COVID Alert:</b> One of your recent interactions has tested
+                              positive for COVID! Please get tested and isolate yourself, if possible. Thank you.</p>
+                          </div>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="false"><i class="ion-ios-close"></i></span>
+                          </button>
+                        </div>
+			      </div>
+                    </div>
+                </div>
+            </div>
                 </div>
            {%for user in users%}
                 {%if user_id == user.user_id%}

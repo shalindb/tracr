@@ -23,10 +23,10 @@ They will not go into the final product
 TODO:
 - Create requirements.txt
 - Create basic working pages with HTML/CSS from Bootsnip
-- Create login page
-- Heatmap Page
-- Contact Tracing Page
-- Warning notification Page
+- Create login page (Still needs frontend)
+- Heatmap Page (Still needs frontend)
+- Contact Tracing Page (Still needs frontend)
+- Warning notification Page 
 """
 
 #The following code is for the heatmap
@@ -61,12 +61,13 @@ def home_page():
     else:
         return render_template('login.html')
 
-"""This is the login page. We do this with the assumption the user has already made an account"""
+"""This is the login page. We do this with the assumption the user has already made an account
+It also sets cookies for the user when they log in again, so they don't have to keep doing it"""
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
         name, user_id, password = request.form.values()
-        print("DEBUG LOGIN:", name, user_id, password)
+        #print("DEBUG LOGIN:", name, user_id, password)
         resp = flask.make_response(render_template('home_page.html'))
         resp.set_cookie('Name', name)
         resp.set_cookie('User ID', user_id)
@@ -91,7 +92,7 @@ def contact_tracer():
     interact([john, shalin], 'August 9')
     interact([john, dan], 'August 10')
     interact([john, youssef], 'August 11')
-    print('DEBUG contact tracer fxn:', request.cookies)
+    #print('DEBUG contact tracer fxn:', request.cookies)
 
     return render_template('contact_tracr.html', user_id = int(request.cookies['User ID']), users = users)
 
