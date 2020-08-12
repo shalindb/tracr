@@ -6,9 +6,6 @@ class Tracr_User:
         self.interactions = []
         self.name = 'User'
 
-# def interact(user: Tracr_User, other_user: Tracr_User, date: str):
-#     user.interactions.append(tuple([other_user.user_id, date]))
-
 def interact(users: list, date: str):
     users[0].interactions.append(tuple([users[1].user_id, date]))
     users[1].interactions.append(tuple([users[0].user_id, date]))

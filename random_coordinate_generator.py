@@ -4,7 +4,7 @@ import random
 import pandas as pd
 from geopy.geocoders import Nominatim
 
-def test_generator():
+def random_coor_generator():
     coordinates = {'City': [], 'Longitude': [], 'Latitude': [], 'Address': []}
     geolocator = Nominatim(user_agent='Tracr')
     for i in range(0, 50):
@@ -20,5 +20,5 @@ def test_generator():
     return coor_df
 
 if __name__ == '__main__':
-    x = test_generator()
+    x = random_coor_generator()
     print(x)
