@@ -1,10 +1,13 @@
 
 class Tracr_User:
+
+    login_info = {}
     def __init__(self, user_id: int, password: str):
         self.user_id = user_id
         self.password = password
         self.interactions = []
         self.name = 'User'
+        Tracr_User.login_info[self.user_id] = self.password
 
 def interact(users: list, date: str):
     users[0].interactions.append(tuple([users[1].user_id, date]))
@@ -29,6 +32,10 @@ def main():
     interact([shalin, bob], 'August 10')
 
     interact([john, shalin], 'August 11')
+
+    print(shalin.login_info[123])
+
+
 
 if __name__ == '__main__':
     main()

@@ -18,13 +18,31 @@ TODO:
 - Warning notification Page 
 """
 
+john = Tracr_User(55555, 'ImAFake')
+john.name = 'John Doe'
+shalin = Tracr_User(12345, 'No')
+dan = Tracr_User(54321, 'Yes')
+youssef = Tracr_User(11221, 'Maybe')
+
+users = [john, shalin, dan, youssef]
+interact([john, shalin], 'August 9')
+interact([john, dan], 'August 10')
+interact([john, youssef], 'August 11')
 
 
 """This is the home page, it checks to see if you have already logged in or not before redirecting you"""
 @app.route('/home')
 def home_page():
-    print('Cookies:', request.cookies.keys())
-    if ('Name' in request.cookies.keys()) and ('User ID' in request.cookies.keys()) and ('Password' in request.cookies.keys()):
+    #Print statements for debugging purposes only
+    # print('Name:', request.cookies.get('Name'))
+    # print('User ID:', request.cookies.get('User ID'))
+    # print('Password:', request.cookies.get('Password'))
+    # print(john.login_info.keys())
+    # print(int(request.cookies.get('User ID')) in john.login_info.keys())
+    # print(john.login_info[int(request.cookies.get('User ID'))] == request.cookies.get('Password'))
+    if ('Name' in request.cookies.keys()) and ('User ID' in request.cookies.keys()) and ('Password' in request.cookies.keys())\
+            and (int(request.cookies.get('User ID')) in john.login_info.keys()) \
+            and (john.login_info[int(request.cookies.get('User ID'))] == request.cookies.get('Password')):
         return render_template('home_page.html')
     else:
         return render_template('index.html')
@@ -51,16 +69,7 @@ def heatmap():
 """This is the list of those the user has been in contact with"""
 @app.route('/contact_tracr')
 def contact_tracer():
-    john = Tracr_User(55555, 'ImAFake')
-    john.name = 'John Doe'
-    shalin = Tracr_User(12345, 'No')
-    dan = Tracr_User(54321, 'Yes')
-    youssef = Tracr_User(11221, 'Maybe')
 
-    users = [john, shalin, dan, youssef]
-    interact([john, shalin], 'August 9')
-    interact([john, dan], 'August 10')
-    interact([john, youssef], 'August 11')
     #print('DEBUG contact tracer fxn:', request.cookies)
 
     return render_template('contact_tracr.html', user_id = int(request.cookies['User ID']), users = users)
