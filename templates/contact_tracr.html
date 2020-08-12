@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
 
@@ -11,12 +12,16 @@
         <link rel="stylesheet" href="../static/css/style.css">
     </head>
    <body>
+<div class="p-3 mb-2 bg-secondary text-white">
        <div class="main-section">
                         <div class="container-fluid px-md-0">
+
                     <div class="row no-gutters">
                         <div class="col-md-12">
                             <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-                              <a class="navbar-brand" href="/home">TracR</a>
+                              <img src="{{url_for('static', filename='tracr_small_clear_logo.png')}}"
+                                 style = "width:105px; height: 105px"
+                                 alt = "test photo"/>
                               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="oi oi-menu"></span>
                               </button>
@@ -41,7 +46,9 @@
                             </nav>
                         </div>
                     </div>
+
             <div class="container">
+
 				<div class="row">
 					<div class="col-md-12">
                     <div class="alert alert-danger">
@@ -62,12 +69,53 @@
                 </div>
             </div>
                 </div>
-           {%for user in users%}
-                {%if user_id == user.user_id%}
-            <h1 class="display-3">Welcome {{user.name}}, your interactions are: {{user.interactions}}.
-                It's nice to see you again.</h1>
-                {%endif%}
-           {%endfor%}
        </div>
+
+
+       <h3 class="text-warning">Your recent interactions</h3>
+       <table class="table table-hover table-dark">
+          <thead>
+            <tr>
+              <th scope="col">City</th>
+              <th scope="col">User ID</th>
+              <th scope="col">Date</th>
+                <th scope="col">Duration Interacted</th>
+                <th scope="col">Closest Distance (ft)</th>
+              <th scope="col">COVID Status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          {%for user in interactions%}
+            <tr>
+
+                {%if user[4] == True%}
+                <th class="bg-danger" scope="row">Berkeley, CA</th>
+                <td class="bg-danger">{{user[0]}}</td>
+              <td class="bg-danger">{{user[1]}}</td>
+                <td class="bg-danger">{{user[2]}} seconds</td>
+                <td class="bg-danger">{{user[3]}} feet</td>
+
+                <td class="bg-danger">Positive</td>
+
+                {%else%}
+                <th scope="row">Berkeley, CA</th>
+              <td>{{user[0]}}</td>
+              <td>{{user[1]}}</td>
+                <td>{{user[2]}} seconds</td>
+                <td>{{user[3]}} feet</td>
+
+                <td>Negative</td>
+                {%endif%}
+
+            </tr>
+          {%endfor%}
+
+          </tbody>
+        </table>
+       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</div>
    </body>
 </html>

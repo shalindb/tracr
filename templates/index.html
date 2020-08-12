@@ -38,8 +38,12 @@
 					</span>
 					<span class="login100-form-title p-b-48">
 						To Tracr
-
 					</span>
+					{%if logged_in == False%}
+					<p>
+						Login Info Incorrect. Please Try Again
+					</p>
+					{%endif%}
 
 					<div class="wrap-input100 validate-input" data-validate = "Please put your name">
 						<input class="input100" type="text" name="name" id="nm">

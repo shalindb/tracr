@@ -24,28 +24,42 @@ shalin = Tracr_User(12345, 'No')
 dan = Tracr_User(54321, 'Yes')
 youssef = Tracr_User(11221, 'Maybe')
 
-users = [john, shalin, dan, youssef]
-interact([john, shalin], 'August 9')
+#users = [john, shalin, dan, youssef]
+interact([john, shalin], 'August 11')
 interact([john, dan], 'August 10')
-interact([john, youssef], 'August 11')
+interact([john, youssef], 'August 9')
+interact([john, Tracr_User(84720, 'Maybe')], 'August 9')
+interact([john, Tracr_User(37564, 'Maybe')], 'August 8')
+interact([john, Tracr_User(20472, 'Maybe')], 'August 8')
+interact([john, Tracr_User(20291, 'Maybe')], 'August 8')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe', True)], 'August 8')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 6')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 5')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 5')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 5')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 4')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 4')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 3')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 3')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 2')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'August 1')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'July 30')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'July 30')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'July 29')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'July 29')
+interact([john, Tracr_User(random.randint(10000, 99999), 'Maybe')], 'July 28')
 
+logged_in = False
 
 """This is the home page, it checks to see if you have already logged in or not before redirecting you"""
 @app.route('/home')
 def home_page():
-    #Print statements for debugging purposes only
-    # print('Name:', request.cookies.get('Name'))
-    # print('User ID:', request.cookies.get('User ID'))
-    # print('Password:', request.cookies.get('Password'))
-    # print(john.login_info.keys())
-    # print(int(request.cookies.get('User ID')) in john.login_info.keys())
-    # print(john.login_info[int(request.cookies.get('User ID'))] == request.cookies.get('Password'))
-    if ('Name' in request.cookies.keys()) and ('User ID' in request.cookies.keys()) and ('Password' in request.cookies.keys())\
-            and (int(request.cookies.get('User ID')) in john.login_info.keys()) \
-            and (john.login_info[int(request.cookies.get('User ID'))] == request.cookies.get('Password')):
+
+    if logged_in:
         return render_template('home_page.html')
     else:
-        return render_template('index.html')
+
+        return render_template('index.html', logged_in=True)
 
 """This is the login page. We do this with the assumption the user has already made an account
 It also sets cookies for the user when they log in again, so they don't have to keep doing it"""
@@ -53,12 +67,18 @@ It also sets cookies for the user when they log in again, so they don't have to 
 def login():
     if request.method == 'POST':
         name, user_id, password = request.form.values()
-        #print("DEBUG LOGIN:", name, user_id, password)
-        resp = flask.make_response(render_template('home_page.html'))
-        resp.set_cookie('Name', name)
-        resp.set_cookie('User ID', user_id)
-        resp.set_cookie('Password', password)
-        return resp
+        print("DEBUG LOGIN:", name, user_id, password)
+
+        if int(user_id) in john.login_info.keys() and john.login_info[int(user_id)] == password:
+            global logged_in
+            logged_in = True
+            resp = flask.make_response(render_template('home_page.html'))
+            resp.set_cookie('Name', name)
+            resp.set_cookie('User ID', user_id)
+            resp.set_cookie('Password', password)
+            return resp
+        else:
+            return render_template('index.html', logged_in=False)
 
 """This is the heatmap"""
 @app.route('/heatmap')
@@ -70,9 +90,9 @@ def heatmap():
 @app.route('/contact_tracr')
 def contact_tracer():
 
-    #print('DEBUG contact tracer fxn:', request.cookies)
+    print('DEBUG contact tracer fxn:', john.interactions)
 
-    return render_template('contact_tracr.html', user_id = int(request.cookies['User ID']), users = users)
+    return render_template('contact_tracr.html', user_id = int(request.cookies['User ID']), interactions = john.interactions)
 
 @app.route('/about_us')
 def about_us():

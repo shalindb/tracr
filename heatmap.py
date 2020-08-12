@@ -5,6 +5,7 @@ import os
 
 import matplotlib.pyplot as plt
 
+import pandas as pd
 import mplcursors
 import geopandas as gpd
 from matplotlib import rcParams
@@ -14,7 +15,7 @@ from random_coordinate_generator import *
 def generate_heatmap():
     street_map = gpd.read_file(os.path.join(os.path.dirname(__file__), 'berkeley-s7wq14-shapefile'
                                                                        '/s7wq14.shp'))
-    my_df = random_coor_generator()
+    my_df = pd.read_csv('random_coors.csv')
     crs = {'init': 'epsg:4326'}
     geometry = [Point(xy) for xy in zip(my_df['Longitude'], my_df['Latitude'])]
     geo_df = gpd.GeoDataFrame(my_df,  # specify our data
@@ -22,14 +23,22 @@ def generate_heatmap():
                               geometry=geometry  # specify the geometry list we created
                               )
 
-    fig, ax = plt.subplots(figsize=(25, 25))
+    fig, ax = plt.subplots(figsize=(10, 10))
     street_map.plot(ax=ax, alpha=0.4, color='grey')
-    geo_df.plot(ax=ax, markersize=50, color='blue', marker='o')
+    geo_df.plot(ax=ax, markersize=30, color='blue', marker='o')
     ax.set_title('Interactions in Berkeley as noted by Tracr',
-                 fontdict={'fontsize': 50,
+                 fontdict={'fontsize': 20,
                            'fontweight': rcParams['axes.titleweight'],
                            'verticalalignment': 'baseline',
                            'horizontalalignment': 'center'})
     ax.set_axis_off()
+    long_to_address = dict(zip(my_df['Longitude'], my_df['Address']))
+    # mplcursors.cursor(hover=True)
+    mplcursors.cursor(hover=True).connect('add', lambda sel: sel.annotation.set_text(
+        f'{long_to_address[sel.target[0]][:-26]}'
+    ))
+    plt.show()
+    #plt.savefig('berkeley_heatmap.html')
 
-    plt.savefig('berkeley_heatmap.png')
+if __name__ == '__main__':
+    generate_heatmap()
