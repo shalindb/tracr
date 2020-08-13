@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="../static/css/style.css">
     </head>
    <body>
+   <div class="p-3 mb-2 bg-secondary text-white">
        <div class="main-section">
                         <div class="container-fluid px-md-0">
                     <div class="row no-gutters">
@@ -29,13 +30,13 @@
                                     <a class="nav-link d-flex align-items-center" href="/home">Home <span class="sr-only">(current)</span></a>
                                   </li>
                                   <li class="nav-item df-elx">
-                                    <a class="nav-link d-flex align-items-center" href="/heatmap">Heatmap</a>
+                                    <a class="nav-link d-flex align-items-center" href="/heatmap">Dot Density Map</a>
                                   </li>
                                     <li class="nav-item df-elx">
                                     <a class="nav-link d-flex align-items-center" href="/contact_tracr">Contact Tracer</a>
                                   </li>
                                     <li class="nav-item df-elx active">
-                                    <a class="nav-link d-flex align-items-center" href="/about_us">About Us</a>
+                                    <a class="nav-link d-flex align-items-center" href="/about_us">Resources</a>
                                   </li>
 
                                 </ul>
@@ -46,5 +47,21 @@
                 </div>
 
        </div>
+       <h1 class="text-warning">COVID-Related News Articles and Resources</h1>
+       <center class="view overlay">
+
+        <div class="p-3 mb-2 bg-secondary text-white">
+           <iframe src="https://feed.mikle.com/widget/v2/134750/?preloader-text=Loading" height="532px" width="100%"
+                   class="fw-iframe" scrolling="no" frameborder="0"></iframe>
+        </div>
+       </center>
+           </div>
+   </div>
    </body>
+	<footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Fake Copyright &copy; TPREP 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
 </html>

@@ -42,20 +42,20 @@ def generate_heatmap():
     geo_df.plot(ax=ax, markersize=10, color='#FDB515', marker=',')
     geo_john_df.plot(ax=ax, markersize=10, color='red', marker='^')
     geo_loc_df.plot(ax=ax, markersize=20, color='purple', marker='o')
-    ax.set_title('Interactions in Berkeley as noted by Tracr',
-                 fontdict={'fontsize': 20,
-                           'fontweight': rcParams['axes.titleweight'],
-                           'verticalalignment': 'baseline',
-                           'horizontalalignment': 'center'})
+    # ax.set_title('Interactions in Berkeley as noted by Tracr',
+    #              fontdict={'fontsize': 20,
+    #                        'fontweight': rcParams['axes.titleweight'],
+    #                        'verticalalignment': 'baseline',
+    #                        'horizontalalignment': 'center'})
     ax.set_axis_off()
-    ax.legend(['Interactions in your City', 'Your 10 Most Recent Interactions', 'Your Current Location'])
+    ax.legend(['Hotspots in Berkeley, CA', 'Your 10 Most Recent Interactions', 'Your Current Location'])
     long_to_address = dict(zip(my_df['Longitude'], my_df['Address']))
     # mplcursors.cursor(hover=True)
     mplcursors.cursor(hover=True).connect('add', lambda sel: sel.annotation.set_text(
         f'{long_to_address[sel.target[0]][:-26]}'
     ))
     #plt.show()
-    plt.savefig('berkeley_heatmap.png')
+    plt.savefig('berkeley_dotmap.png')
 
 if __name__ == '__main__':
     generate_heatmap()
