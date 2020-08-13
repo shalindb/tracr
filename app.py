@@ -91,7 +91,7 @@ def heatmap():
 def contact_tracer():
 
     print('DEBUG contact tracer fxn:', john.interactions)
-
+    print('DEBUG contact tracer fxn:', request.cookies)
     return render_template('contact_tracr.html', user_id = int(request.cookies['User ID']), interactions = john.interactions)
 
 @app.route('/about_us')
@@ -99,5 +99,5 @@ def about_us():
     return render_template('about_us.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
-    #app.run(host='0.0.0.0')
+    #app.run(debug=True, port=8080)
+    app.run(host='0.0.0.0', port=5000)
