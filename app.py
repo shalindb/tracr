@@ -83,7 +83,7 @@ def login():
 """This is the heatmap"""
 @app.route('/heatmap')
 def heatmap():
-    #generate_heatmap()
+    generate_heatmap()
     return render_template('heatmap.html')
 
 """This is the list of those the user has been in contact with"""
